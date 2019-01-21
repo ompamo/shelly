@@ -1,0 +1,6 @@
+title=dnscat2 server launcher
+info=PARAM1 contains de domain name
+required_opts=PARAM1
+app=ruby
+params=-W0;/opt/dnscat2/server/dnscat2.rb;PARAM1;--no-cache
+pre_exec=

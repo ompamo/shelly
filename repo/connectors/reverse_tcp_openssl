@@ -1,0 +1,6 @@
+title=OpenSSL listener (encrypted)
+info=If not working generate/create new cert in aux: openssl req -x509 -newkey rsa:1024 -keyout key.pem -out cert.pem -days 365 -nodes
+required_opts=LPORT
+app=/usr/bin/openssl
+params=s_server;-quiet;-key;/opt/shelly/repo/auxiliary/key.pem;-cert;/opt/shelly/repo/auxiliary/cert.pem;-port;LPORT
+pre_exec=

@@ -1,0 +1,6 @@
+title=Reverse TCP ipv6 Netcat listener
+info=No additional info
+required_opts=LPORT
+app=/bin/nc
+params=-l6vp;LPORT
+pre_exec=

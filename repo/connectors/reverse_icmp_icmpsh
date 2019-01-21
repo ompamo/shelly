@@ -1,0 +1,6 @@
+title=icmpsh
+info=ICMP reverse shell connector. Requires PARAM1=>Remote host IP address
+required_opts=LHOST;PARAM1
+app=/opt/icmpsh/icmpsh_m.py
+params=LHOST;PARAM1
+pre_exec=sysctl -w net.ipv4.icmp_echo_ignore_all=1

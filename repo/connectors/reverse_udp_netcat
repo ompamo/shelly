@@ -1,0 +1,6 @@
+title=netcat listener
+info=reverse UDP
+required_opts=LPORT
+app=/bin/nc
+params=-lvup;LPORT
+pre_exec=
