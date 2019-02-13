@@ -5,20 +5,28 @@ Tool created to automate the creation of payloads to get a reverse shell, making
 
 ### Payloads
 * reverse_icmp_powershell
+* reverse_tcp6_python
 * reverse_tcp_bash
-* reverse_tcp_bash (using setsid)
-* reverse_tcp_bash_openssl (encrypts connection)
+* reverse_tcp_bash_setsid (using setsid)
 * reverse_tcp_netcatbsd (no -e option)
+* reverse_tcp_netcatbsd_noamp (no -e option, not using &)
+* reverse_tcp_openssl (encrypts connection)
+* reverse_tcp_openssl_noamp (encrypts connection, not using &)
 * reverse_tcp_perl
+* reverse_tcp_perl_noamp (not using &)
 * reverse_tcp_php
 * reverse_tcp_phpmonkey (oneliner based on pentest monkeys php rev shell)
 * reverse_tcp_powercat (powershell, stager required)
 * reverse_tcp_powershell
 * reverse_tcp_python
-* reverse_udp_dnscat2(powershell, stager required)
+* reverse_tcp_python_pty (prepared to make it interactive: ctr+z, stty raw -echo, fg)
+* reverse_tcp_ruby
+* reverse_socat_ssl
+* reverse_udp_dnscat2 (powershell, stager required)
 * reverse_udp_netcatbsd (no -e option)
 * reverse_udp_perl
 * reverse_udp_python
+* reverse_udp_python_pty (prepared to make it interactive: ctr+z, stty raw -echo, fg)
 
 ### Stagers
 Various techinques used to deliver staged payloads. Only http at the moment:
@@ -30,10 +38,13 @@ Various techinques used to deliver staged payloads. Only http at the moment:
 ### Connectors
 Connectors are the confguration settings that allow to chatch the shell executed for the payload
 * reverse_icmp_icmpsh (require have installed icmpsh and setup the connector file with correct path, elevated privs)
-* reverse_tcp_netct listener
-* reverse_tcp_ncat_ssl (ssl encrypted listener)
+* reverse_tcp6_netcat
+* reverse_tcp_ncat_ssl
+* reverse_tcp_netcat
+* reverse_tcp_openssl
+* reverse_socat_ssl
 * reverse_udp_dnscat2 (require have ruby + server installed and working prior to use it)
-* reverse_udp_netcat listener
+* reverse_udp_netcat
 
 ## Installation
 * ```git clone https://github.com/ompamo/shelly.git```
