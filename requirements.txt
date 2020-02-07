@@ -2,4 +2,4 @@ argparse
 argcomplete
 pyperclip
 terminaltables
-
+readline

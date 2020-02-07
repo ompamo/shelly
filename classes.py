@@ -70,12 +70,14 @@ class Payload:
     info=""
     payload=""
     connector=""
+    is_binary=False
 
     def __init__(self,config_file):
         self.config_file=config_file    
         multiline=False
+        binary=False
         for line in open(config_file,'rt'):
-            if multiline:
+            if multiline or self.is_binary:
                 if "%%payload_end%%" not in line:
                     self.payload+=line
                 else: 
@@ -84,6 +86,8 @@ class Payload:
             if data[0].lower()=="payload":
                 if data[1]=="multiline":
                     multiline=True
+                elif data[1]=="binary":
+                    self.is_binary=True
                 else:
                     self.payload=data[1]
             elif data[0].lower()=="required_opts":         
@@ -148,6 +152,9 @@ class Payload:
         data='[*] '+self.config_file.split('/')[-1]+' => '+self.title
         return data
 
+    def getIsBinary(self):
+        return(self.is_binary)
+
     def randomStr(self, l):
         return ''.join(random.choice(string.ascii_uppercase+string.ascii_lowercase+string.digits) for _ in range(l))
 
@@ -180,6 +187,9 @@ class StagerHTTP(Payload):
     def setStagedPayload(self,stagedPayload):
         self.staged_payload=stagedPayload
 
+    def setIsBinary(self,value):
+        self.is_binary=value
+
     def generatePayload(self,opts):
         opts['FILENAME']=self.filename
         if Payload.generatePayload(self,opts):
@@ -189,8 +199,12 @@ class StagerHTTP(Payload):
 
     def serveStaged(self):
         #save staged payload into a temp file
-        f=open(self.temp_path+'/'+self.filename,'wt')
-        f.write(self.staged_payload)
+        if self.is_binary:
+            f=open(self.temp_path+'/'+self.filename,'wb')
+            f.write(base64.b64decode(self.staged_payload))
+        else:
+            f=open(self.temp_path+'/'+self.filename,'wt')
+            f.write(self.staged_payload)
         f.close()
         #start webserver
         try:

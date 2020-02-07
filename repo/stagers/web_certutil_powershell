@@ -1,4 +1,4 @@
-title=certutil type2powershell
+title=certutil powershell
 info=download files using certutil - PARAM1=>remote path i.e. C:\\Windows\\Tasks or C:\\Temp
 required_opts=LHOST;SPORT;PARAM1
 http_requests=2

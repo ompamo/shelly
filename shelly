@@ -78,6 +78,7 @@ if args.command=='rev':
     if args.stager:
         s=StagerHTTP(STAGERS_PATH+args.stager)
         s.setStagedPayload(p.payload)
+        s.setIsBinary(p.getIsBinary)
         if not s.generatePayload(clean_opts):
             print "Error generating STAGER payload. Missing args? Check help!"
             print "MAIN require:", p.requiredOpts()

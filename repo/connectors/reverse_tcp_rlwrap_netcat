@@ -1,0 +1,6 @@
+title=Reverse TCP Netcat listener
+info=No additional info
+required_opts=LPORT
+app=/usr/bin/rlwrap
+params=/bin/nc;-lvp;LPORT
+pre_exec=
