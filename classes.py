@@ -58,6 +58,7 @@ class Connector:
             if self.pre_exec != "":
                 os.system(self.pre_exec)
             #executing the connector
+            print "[*] Listener cmd: "+" ".join(exec_params)
             os.execvp(self.app,exec_params)
         else:
             return False

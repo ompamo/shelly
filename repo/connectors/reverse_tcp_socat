@@ -1,0 +1,6 @@
+title=Reverse TCP socat listener
+info=PARAM1 should point to our tty -> add: -1 `tty`
+required_opts=LPORT;PARAM1
+app=/usr/bin/socat
+params=file:PARAM1,raw,echo=0;tcp-listen:LPORT
+pre_exec=

