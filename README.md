@@ -1,5 +1,5 @@
 # shelly
-(mainly reverse shell) payload generator (and shell catcher) written in python2.7
+(mainly reverse shell) payload generator (and shell catcher) written in python2.7 (now ported to v3)
 
 Tool created to automate the creation of payloads to get a reverse shell, making easier to encode it, or serve it using a stager. It's made in a way that is very easy to add more payloads, stagers and connectors.
 
