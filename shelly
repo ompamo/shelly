@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import argparse, argcomplete
 import os
 import pyperclip
@@ -66,8 +66,8 @@ if args.command=='rev':
     p=Payload(PAYLOADS_PATH+opts['payload'])
     if not p.generatePayload(clean_opts):
         #call method to show the required args!!
-        print "Error generating REVERSE payload. Missing args? Check help!"
-        print "MAIN require:", p.requiredOpts()
+        print ("Error generating REVERSE payload. Missing args? Check help!")
+        print ("MAIN require:", p.requiredOpts())
         exit()
 
     if args.urlencode:
@@ -80,23 +80,23 @@ if args.command=='rev':
         s.setStagedPayload(p.payload)
         s.setIsBinary(p.getIsBinary)
         if not s.generatePayload(clean_opts):
-            print "Error generating STAGER payload. Missing args? Check help!"
-            print "MAIN require:", p.requiredOpts()
-            print "STAGER require:", s.requiredOpts()
+            print ("Error generating STAGER payload. Missing args? Check help!")
+            print ("MAIN require:", p.requiredOpts())
+            print ("STAGER require:", s.requiredOpts())
             exit()
-        print "[*] Payload generated:"
+        print ("[*] Payload generated:")
         if args.urlencode: 
-            print s.getUrlencoded()
+            print (s.getUrlencoded())
             pyperclip.copy(s.getUrlencoded())
         else: 
-            print s.payload
+            print (s.payload)
             pyperclip.copy(s.payload)
         #starting the http server to serve staged payload
         s.serveStaged()
     #if not staged print the normal payload
     else:
-        print "[*] Payload generated:"
-        print payload
+        print ("[*] Payload generated:")
+        print (payload)
         pyperclip.copy(payload)
 
     #if listener is required we start it now
@@ -104,22 +104,22 @@ if args.command=='rev':
         try:
             c=Connector(CONNECTORS_PATH+p.getConnector())
             if not c.launch(clean_opts):
-                print "[!] Non available / Configured connectors for this payload"
+                print ("[!] Non available / Configured connectors for this payload")
         except:
-            print "[!] Error (maybe connector file not present)"
+            print ("[!] Error (maybe connector file not present)")
 
 elif args.command2=='payload':
     if not args.payload:
         for PAYLOAD in PAYLOADS:
-            print Payload(PAYLOADS_PATH+PAYLOAD).getBrief()
+            print (Payload(PAYLOADS_PATH+PAYLOAD).getBrief())
     else:
-        print Payload(PAYLOADS_PATH+args.payload).getInfo()
+        print (Payload(PAYLOADS_PATH+args.payload).getInfo())
         
 
 elif args.command2=='stager':
     if not args.stager:
         for STAGER in STAGERS:
-            print StagerHTTP(STAGERS_PATH+STAGER).getBrief()
+            print (StagerHTTP(STAGERS_PATH+STAGER).getBrief())
             
     else:
-        print StagerHTTP(STAGERS_PATH+args.stager).getInfo()
+        print (StagerHTTP(STAGERS_PATH+args.stager).getInfo())

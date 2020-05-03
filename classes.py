@@ -1,5 +1,5 @@
 import random, string #for name generation
-import SimpleHTTPServer, SocketServer, os #for serving and cleaning the staged payloads
+import http.server, socketserver, os #for serving and cleaning the staged payloads
 import urllib, base64 #encoding of the payloads
 import terminaltables, os, re  #drawing tables
 
@@ -31,8 +31,8 @@ class Connector:
     def __checkOpts(self,opts):
         for opt in self.required_opts:
             if opt not in opts:
-                print "[-]",opt, "NOT FOUND"
-                print "\n[-] ", self.info
+                print ("[-]",opt, "NOT FOUND")
+                print ("\n[-] ", self.info)
                 return False
         return True
 
@@ -53,12 +53,12 @@ class Connector:
                         break
                 exec_params.append(replaced)
             #we need to exec here the connector
-            print "\n[*]", self.title, "-", self.info
+            print ("\n[*]", self.title, "-", self.info)
             #if we need to execute something before that's the moment
             if self.pre_exec != "":
                 os.system(self.pre_exec)
             #executing the connector
-            print "[*] Listener cmd: "+" ".join(exec_params)
+            print ("[*] Listener cmd: "+" ".join(exec_params))
             os.execvp(self.app,exec_params)
         else:
             return False
@@ -103,8 +103,8 @@ class Payload:
     def __checkOpts(self,opts):
         for opt in self.required_opts:
             if opt not in opts:
-                print opt, "NOT FOUND"
-                print self.info
+                print (opt, "NOT FOUND")
+                print (self.info)
                 return False
         return True
 
@@ -210,22 +210,22 @@ class StagerHTTP(Payload):
         #start webserver
         try:
             os.chdir(self.temp_path)
-            Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-            httpd = SocketServer.TCPServer((self.recv_opts['LHOST'], int(self.recv_opts['SPORT'])), Handler)
-            print "[*] Serving stage at port", self.recv_opts['SPORT']
+            Handler = http.server.SimpleHTTPRequestHandler
+            httpd = socketserver.TCPServer((self.recv_opts['LHOST'], int(self.recv_opts['SPORT'])), Handler)
+            print ("[*] Serving stage at port", self.recv_opts['SPORT'])
             c=0
             while(c<self.http_requests):
                 httpd.handle_request()
-                print "[*] Part "+str(c+1)+" of "+str(self.http_requests)+" sent"
+                print ("[*] Part "+str(c+1)+" of "+str(self.http_requests)+" sent")
                 c+=1
             httpd.socket.close()
         except KeyboardInterrupt:
-    	    print ' received, shutting down the web server'
+            print (' received, shutting down the web server')
             httpd.socket.close()
             os.remove(self.temp_path+"/"+self.filename)
             exit()
         except:
-            print '[!] Error serving your payload.'
+            print ('[!] Error serving your payload.')
             os.remove(self.temp_path+"/"+self.filename)
             exit()
         try:
