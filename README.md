@@ -53,7 +53,7 @@ Connectors are the confguration settings that allow to chatch the shell executed
 * ```git clone https://github.com/ompamo/shelly.git```
 * configure BASE_PATH on 'shelly' file. Default: /opt/shelly
 * ```ln -s /opt/shelly/shelly /usr/local/bin/shelly```
-* To enable bash-completion add to your ~/.bashrc file: ```eval "$(register-python-argcomplete shelly)"```
+* To enable bash-completion add to your ~/.bashrc file: ```eval "$(register-python-argcomplete3 shelly)"```
 * Install required libs:```pip install -r requirements.txt```
 
 ## Extra features
