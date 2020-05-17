@@ -54,7 +54,7 @@ Connectors are the confguration settings that allow to chatch the shell executed
 * configure BASE_PATH on 'shelly' file. Default: /opt/shelly
 * ```ln -s /opt/shelly/shelly /usr/local/bin/shelly```
 * To enable bash-completion add to your ~/.bashrc file: ```eval "$(register-python-argcomplete3 shelly)"```
-* Install required libs:```pip install -r requirements.txt```
+* Install required libs:```pip3 install -r requirements.txt```
 
 ## Extra features
 * Auto copy payloads to paperclip (xclip required)
