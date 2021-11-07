@@ -112,7 +112,7 @@ class Payload:
         return self.required_opts
 
     def getUrlencoded(self):
-        return urllib.quote(self.payload,safe='')
+        return urllib.parse.quote(self.payload,safe='')
 
     def getB64UTF16LE(self):
         #interesting to use with Invoke-PSInject script
