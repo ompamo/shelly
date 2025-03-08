@@ -171,7 +171,8 @@ class Payload:
             return False
 
 class StagerHTTP(Payload):
-    temp_path="/tmp"
+    #temp_path="/tmp" #changed causing errors with parrot new version switched to local directory
+    temp_path="."
     staged_payload=""
     http_requests=1
     filename=""
@@ -200,7 +201,8 @@ class StagerHTTP(Payload):
 
     def serveStaged(self):
         #save staged payload into a temp file
-        if self.is_binary:
+        #if self.is_binary: #replaced line binary payloads not working at the moment
+        if self.is_binary==False: 
             f=open(self.temp_path+'/'+self.filename,'wb')
             f.write(base64.b64decode(self.staged_payload))
         else:
